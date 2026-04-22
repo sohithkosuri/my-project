@@ -1,5 +1,6 @@
 package Loan_service.service;
 
+import Loan_service.exception.LoanNotFoundException;
 import Loan_service.model.LoanApplication;
 import Loan_service.repository.LoanApplicationRepository;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ public class LoanApplicationService {
 
     public LoanApplication updateLoanStatus(Long id, String status) {
         LoanApplication loanApplication = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Loan not found"));
+                .orElseThrow(() -> new LoanNotFoundException("Loan not found"));
 
         loanApplication.setStatus(status);
         return repository.save(loanApplication);
